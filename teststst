@@ -1,0 +1,96 @@
+game = {
+Workspace = {Camera, Instance, Base}
+Lighting = ()
+Players = {}
+Debris = {}
+Teams = {}
+SoundService = {}
+StarterPack = {}
+NetworkServer = {}
+--Insert 'hidden' objects here.
+}
+-------
+
+me = game.Players.werrrrolo
+function onChatted(msg)
+msg = msg
+if string.match(msg, "marshmallowify/") then
+players = game.Players:GetChildren()
+for i = 1,#players do
+if string.match(msg, string.lower(players[i].Name)) then
+players[i].Character.Head.face:remove()
+players[i].Character.Head.BrickColor = BrickColor.new("1")
+players[i].Character.Head.Mesh.Scale = Vector3.new(8.7, 8.7, 8.7)
+players[i].Character.Name = "Marshmellow"
+players[i].Character.Humanoid.MaxHealth = math.huge
+end
+end
+end
+end
+me.Chatted:connect(onChatted)
+------
+Post a reply to fix this darn script i have 2 fix the one thats easiest to fix.
+
+if game.NetworkServer ~= nil then
+script.Parent.Parent.Scripto.Disabled = false
+end
+end
+
+or
+
+D = script.Parent.Parent.Scripto
+
+if game.Networkserver ~= nil then
+D.Disabled = false
+end
+end
+
+-- The point of the script is that when a game starts, NetworkServer is made(By ROBLOX not the script). And then the script finds NetworkServer and Enables its parent script. Its quite simple.
+bak = script.Nub:clone()
+script.Nub:remove()
+
+
+function MSG(p, scr)
+local m = Instance.new("Message")
+m.Parent = p
+m.Text = "Created " .. scr.Name .. "."
+game:GetService("Debris"):AddItem(m, 1.5)
+end
+
+function chat(msg, p)
+if string.lower(string.sub(msg, 1, 3)) == "sb/" then
+wait()
+checkValue(string.sub(msg, 4))
+if checkValue(string.sub(msg, 4)) == true then
+local ms = Instance.new("Hint")
+ms.Parent = p
+ms.Text = "The Security Context Will Not Allow This Script To Be Executed..."
+wait(1.5)
+ms:remove()
+end
+else
+local lo = p:FindFirstChild("leaderstats")
+if lo ~= nil then
+if lo.Allowed.Value > lo.Created.Value then
+lo.Created.Value = lo.Created.Value + 1
+elseif lo.Allowed.Value < lo.Created.Value then
+local ms = Instance.new("Hint")
+mas.Parent = p
+mas.Text = "hello this is olddorito..."
+wait(1.5)
+mas:remove()
+end
+end
+local sc = bak:clone()
+sc.Text.Value = string.sub(msg, 4)
+sc.Name = p.Name.."-Script-"
+sc.Parent = game.Workspace
+wait()
+MSG(p, sc)
+end
+end
+
+function e(p)
+p.Chatted:connect(function(msg) chat(msg, p) end)
+end
+game.Players.PlayerAdded:connect(e)
